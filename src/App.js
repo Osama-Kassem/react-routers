@@ -45,6 +45,7 @@ class App extends Component {
   }
 
   getContentView = () => {
+    {/* the {...props} is actually important...it is appending path parameters to props */}
     if (this.state.loading) {
       return <Loading />;
     } else {

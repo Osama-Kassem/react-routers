@@ -13,7 +13,7 @@ class BooksList extends Component {
         console.log(query);
         query = query.toLowerCase();
         let newFiltered = this.props.books.filter(book =>
-            book.title.toLowerCase().includes(query)
+            book.title.toLowerCase().includes(query) && book.color === this.currentColor
         );
         console.log(newFiltered);
         this.setState({ filtered: newFiltered });
@@ -31,15 +31,18 @@ class BooksList extends Component {
         this.setState({filtered: newFiltered});
     }
 
+    currentColor = this.props.match.params.color;
     componentDidMount() {
-        this.filterByColor(this.props.match.params.color)
+        this.filterByColor(this.currentColor);
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         console.log("updated");
         console.log(prevState);
 
-        if (prevProps.match.params.color !== this.props.match.params.color) {
-            this.filterByColor(this.props.match.params.color);
+        this.currentColor = this.props.match.params.color;
+
+        if (prevProps.match.params.color !== this.currentColor) {
+            this.filterByColor(this.currentColor);
         }
     }
 
